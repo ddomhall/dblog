@@ -38,8 +38,8 @@ function App() {
           </div>
           {session ? 
             <div>
-              <Link to={'/conversations'} className='px-2 border-l'>conversations</Link>
               <Link to={'/create'} className='px-2 border-l'>create</Link>
+              <Link to={'/conversations'} className='px-2 border-l'>conversations</Link>
               <Link to={'/users/' + session } className='px-2 border-l'>profile</Link>
               <button onClick={logout} className='px-2 border-l'>log out</button>
             </div> :
@@ -49,7 +49,7 @@ function App() {
             </div>
           }
         </nav>
-        <main>
+        <main className='h-[calc(100vh-64px)]'>
           <Outlet />
         </main>
       </SessionContext.Provider>
