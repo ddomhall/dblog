@@ -33,10 +33,10 @@ export default function Login() {
   }
 
   return(
-    <form onSubmit={loginApi} className='flex flex-col w-96 m-auto'>
-      <input name='username' placeholder='username' required autoFocus/>
-      <input name='password' placeholder='password' type='password' required />
-      <input type='submit' value='log in' />
+    <form onSubmit={loginApi} className='flex flex-col w-96 m-auto gap-3'>
+      <input name='username' placeholder='username' required autoFocus className='rounded-xl px-2'/>
+      <input name='password' placeholder='password' type='password' required  className='rounded-xl px-2'/>
+      <input type='submit' value='log in' className='ring ring-white rounded-xl'/>
       {error}
     </form>
   )

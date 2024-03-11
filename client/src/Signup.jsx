@@ -40,11 +40,11 @@ export default function Signup() {
 
   return(
     <div className='w-96 m-auto'>
-      <form onSubmit={signupApi} className='flex flex-col'>
-        <input name='username' placeholder='username' required autoFocus/>
-        <input name='password' placeholder='password' type='password' required />
-        <input name='confirmation' placeholder='confirm password' type='password' required />
-        <input type='submit' value='log in' />
+      <form onSubmit={signupApi} className='flex flex-col gap-3'>
+        <input name='username' placeholder='username' required autoFocus className='rounded-xl px-2'/>
+        <input name='password' placeholder='password' type='password' required  className='rounded-xl px-2'/>
+        <input name='confirmation' placeholder='confirm password' type='password' required  className='rounded-xl px-2'/>
+        <input type='submit' value='log in' className='ring ring-white rounded-xl'/>
       </form>
       {error}
     </div>
