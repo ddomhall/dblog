@@ -32,7 +32,7 @@ function App() {
               <img src={logo} className='h-10'/>
             </Link>
             <form onSubmit={searchUser}>
-              <input name='search' className='rounded-2xl py-0.5'/>
+              <input name='search' placeholder='users' className='rounded-2xl py-0.5 px-2'/>
               <input type='submit' value='search' className='ring ring-white rounded-xl px-2 ml-2'/>
             </form>
           </div>

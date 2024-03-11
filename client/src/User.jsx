@@ -2,6 +2,7 @@ import {useParams, Link} from 'react-router-dom'
 import {useState, useEffect, useContext} from 'react'
 import {SessionContext} from './SessionContext.jsx'
 import Cookies from 'js-cookie'
+import PostListItem from './PostListItem.jsx'
 
 export default function Profile() {
   const [edit, setEdit] = useState(false)
@@ -35,6 +36,7 @@ export default function Profile() {
   }
 
   async function deleteUser() {
+    if (window.confirm(`you are deleting the account "${user.username}"`))
     fetch(`http://localhost:3000/users/${id}/delete`, {method: 'DELETE'}).then(Cookies.remove('session')).then(document.location.replace('/'))
   }
 
@@ -82,27 +84,27 @@ export default function Profile() {
     <div className='w-96 m-auto'>
       <div className='flex justify-between'>
         {edit ?
-          <form onSubmit={editUser}>
-            <input name='username' placeholder='username' />
-            <input type='submit' value='edit'/>
+          <form onSubmit={editUser} className='flex gap-2'>
+            <input name='username' placeholder='username' className='w-[187px] rounded-xl px-2'/>
+            <input type='submit' value='edit' className='ring ring-white rounded-xl px-2'/>
           </form> :
           <h1>{user.username}</h1>
         }
         {session ? 
           <div>
             {session == id ?
-              <div>
+              <div className='flex gap-3'>
                 {edit ?
-                  <button onClick={() => setEdit(false)}>cancel</button> : 
-                  <button onClick={() => setEdit(true)}>edit</button>
+                  <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> : 
+                  <button onClick={() => setEdit(true)} className='ring ring-white rounded-xl px-2'>edit</button>
                 }
-                <button onClick={deleteUser}>delete</button>
+                <button onClick={deleteUser} className='ring ring-white rounded-xl px-2'>delete</button>
               </div> :
-              <div>
-                <button onClick={messageUser}>message</button>
+              <div className='flex gap-3'>
+                <button onClick={messageUser} className='ring ring-white rounded-xl px-2'>message</button>
                 {viewer.following.includes(id) ?
-                  <button onClick={unfollowUser}>unfollow</button> :
-                  <button onClick={followUser}>follow</button>
+                  <button onClick={unfollowUser} className='ring ring-white rounded-xl px-2'>unfollow</button> :
+                  <button onClick={followUser} className='ring ring-white rounded-xl px-2'>follow</button>
                 }
               </div>
             }
@@ -110,16 +112,7 @@ export default function Profile() {
         }
       </div>
       <div className='flex gap-6 flex-col mt-6'>
-        {posts.map(p => {
-          return (
-            <Link to={'/posts/' + p._id} key={p._id} className='w-full'>
-              <section >
-                <p>{p.content}</p>
-                <p>{p.date}</p>
-              </section>
-            </Link>
-          )
-        })}
+        {posts.map(p => <PostListItem key={p._id} post={p} />)}
       </div>
     </div>
   )

@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/:id/posts', async (req, res) => {
-	const posts = await Post.find({author: req.params.id}).exec()
+	const posts = await Post.find({author: req.params.id}).populate('author').exec()
 	res.json(posts)
 })
 
