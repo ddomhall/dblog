@@ -43,7 +43,7 @@ export default function Message() {
   return (
     <div className='grid grid-cols-4 h-full'>
       <aside className='flex flex-col border-r'>
-        {conversations ? conversations.map(c => <Link to={'/conversations/' + c.id} key={c.id} className='border-b mx-6 py-2'>{c.users}</Link>) : ''}
+        {conversations && conversations.map(c => <Link to={'/conversations/' + c.id} key={c.id} className='border-b mx-6 py-2'>{c.users}</Link>)}
       </aside>
       {id && 
         <section className='col-span-3 flex flex-col justify-between'>

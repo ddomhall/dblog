@@ -47,15 +47,14 @@ export default function Comment() {
             <input type='submit' value='comment' className='ring ring-white rounded-xl px-2' />
           </form>
         }
-        {session == comment.author._id ?
+        {session == comment.author._id &&
           <div className='flex justify-between mt-2'>
             {edit ?
             <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> :
             <button onClick={() => setEdit(true)} className='ring ring-white rounded-xl px-2'>edit</button>
             }
             <button onClick={deleteComment} className='ring ring-white rounded-xl px-2'>delete</button>
-          </div> : ''
-        }
+          </div>}
       </section>
     </div>
   )

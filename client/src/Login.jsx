@@ -21,7 +21,7 @@ export default function Login() {
       .then(res => res.json())
       .then(res => {
         if (res.m == 'success'){
-          setError('')
+          setError()
           window.location.replace('/')
         } else {
           setError('incorrect details')

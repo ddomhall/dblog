@@ -90,7 +90,7 @@ export default function Profile() {
           </form> :
           <h1>{user.username}</h1>
         }
-        {session ? 
+        {session &&
           <div>
             {session == id ?
               <div className='flex gap-3'>
@@ -108,8 +108,7 @@ export default function Profile() {
                 }
               </div>
             }
-          </div> : ''
-        }
+          </div>}
       </div>
       <div className='flex gap-6 flex-col mt-6'>
         {posts.map(p => <PostListItem key={p._id} post={p} />)}
