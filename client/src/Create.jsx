@@ -27,12 +27,14 @@ export default function create() {
 
 
   return (
-    <form onSubmit={postApi} className='flex flex-col w-96 m-auto'>
-      <input name='content' placeholder='content' />
-      <label htmlFor='published'>published
-        <input name='published' id='published' type='checkbox'/>
+    <form onSubmit={postApi} className='flex flex-col w-96 m-auto gap-2 ring ring-white p-2 rounded-xl'>
+      <input name='content' placeholder='content' className='rounded-xl px-2'/>
+      <div className='flex justify-between'>
+      <label htmlFor='published' className='pl-2'>published
+        <input name='published' id='published' type='checkbox' className='ml-2'/>
       </label>
-      <input type='submit' value='post' />
+      <input type='submit' value='post' className='ring ring-white rounded-xl px-2'/>
+      </div>
     </form>
   )
 }

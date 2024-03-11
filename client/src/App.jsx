@@ -1,4 +1,4 @@
-import {Outlet, Link} from 'react-router-dom'
+import {Outlet, Link, useNavigate} from 'react-router-dom'
 import {useState, useContext} from 'react'
 import {SessionContext} from './SessionContext.jsx'
 import Cookies from 'js-cookie'
@@ -6,6 +6,7 @@ import logo from '../dh logo white.png'
 
 function App() {
   const [session, setSession] = useState(Cookies.get('session'))
+  const navigate = useNavigate()
 
   function logout() {
     fetch('http://localhost:3000/logout', {
@@ -17,9 +18,12 @@ function App() {
 
   async function searchUser(e) {
     e.preventDefault()
-    const user = await fetch(`http://localhost:3000/search?username=${e.target.search.value}`).then(res => res.json())
+    const name = e.target.search.value
+    const user = await fetch(`http://localhost:3000/search?username=${name}`).then(res => res.json())
     if (user) {
       window.location.replace(`/users/${user._id}`)
+    } else {
+      window.alert(`no user named "${name}"`)
     }
   }
 

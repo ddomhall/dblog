@@ -51,7 +51,7 @@ export default function Profile() {
 
   return(
     <div className='w-96 m-auto ring ring-white rounded-xl p-2'>
-      <div className='border-b pb-2'>
+      <div className='pb-2'>
         {!edit ?
           <section className='flex flex-col gap-2'>
             <p>{post.content}</p>
@@ -83,7 +83,7 @@ export default function Profile() {
           </div>}
       </div>
       {session && 
-        <form onSubmit={commentApi} className='flex flex-col gap-4 my-4'>
+        <form onSubmit={commentApi} className='flex flex-col gap-4 py-4 border-t'>
           <input name='content' placeholder='content' className='rounded-xl px-2' />
           <input type='submit' value='comment' className='ring ring-white rounded-xl' />
         </form>}

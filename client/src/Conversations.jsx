@@ -47,9 +47,9 @@ export default function Message() {
       </aside>
       {id && 
         <section className='col-span-3 flex flex-col justify-between'>
-          <div className='flex flex-col mx-6'>
+          <div className='flex flex-col p-6 h-full max-h-[calc(100vh-64px-97.21px)] overflow-y-scroll'>
             {messages && messages.map(m => 
-              <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2`}>
+              <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2 mt-6`}>
                 <div>{m.content}</div>
                 <div>{formattedDate(m.time)}</div>
               </div>)}
