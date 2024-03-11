@@ -1,6 +1,7 @@
 import {useParams, Link} from 'react-router-dom'
 import {useState, useEffect, useContext} from 'react'
 import {SessionContext} from './SessionContext.jsx'
+import formattedDate from '../utils/formattedDate.js'
 
 export default function Profile() {
   const {session} = useContext(SessionContext)
@@ -49,48 +50,52 @@ export default function Profile() {
   }
 
   return(
-    <div className='w-96 m-auto'>
-      {!edit ?
-        <section>
-          <p>{post.content}</p>
-          <Link to={'/users/' + post.author._id}>
-            <p>{post.author.username}</p>
-          </Link>
-          <p>{post.date}</p>
-        </section> :
-        <form onSubmit={editPost} className='flex flex-col'>
-          <input name='content' placeholder='content' defaultValue={post.content}/>
-          <label htmlFor='published'>published
-            {post.published ?
-            <input name='published' id='published' type='checkbox' defaultChecked/> :
-            <input name='published' id='published' type='checkbox' />
+    <div className='w-96 m-auto ring ring-white rounded-xl p-2'>
+      <div className='border-b pb-2'>
+        {!edit ?
+          <section className='flex flex-col gap-2'>
+            <p>{post.content}</p>
+            <div className='flex justify-between'>
+              <Link to={'/users/' + post.author._id} className='underline'>{post.author.username}</Link>
+              <p>{formattedDate(post.date)}</p>
+            </div>
+          </section> :
+          <form onSubmit={editPost} className='flex flex-col gap-2'>
+            <input name='content' placeholder='content' defaultValue={post.content} className='rounded-xl px-2'/>
+            <div className='flex justify-between'>
+              <label htmlFor='published' className='px-2'>published 
+                {post.published ?
+                  <input name='published' id='published' type='checkbox' defaultChecked className='ml-2'/> :
+                  <input name='published' id='published' type='checkbox' />
+                }
+              </label>
+              <input type='submit' value='edit' className='ring ring-white rounded-xl px-2' />
+            </div>
+          </form>
+        }
+        {session == post.author._id &&
+          <div className='flex justify-between my-2'>
+            {edit ?
+              <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> :
+              <button onClick={() => setEdit(true)} className='ring ring-white rounded-xl px-2'>edit</button>
             }
-          </label>
-          <input type='submit' value='edit' />
-        </form>
-      }
-      {session == post.author._id ?
-        <div className='flex justify-between'>
-          {edit ?
-            <button onClick={() => setEdit(false)}>cancel</button> :
-            <button onClick={() => setEdit(true)}>edit</button>
-          }
-          <button onClick={deletePost}>delete</button>
-        </div> : ''
-      }
-      {session ? 
-      <form onSubmit={commentApi} className='flex flex-col'>
-        <input name='content' placeholder='content' />
-        <input type='submit' value='comment' />
-      </form> : ''
-      }
-      <section className='flex flex-col gap-6'>
+            <button onClick={deletePost} className='ring ring-white rounded-xl px-2'>delete</button>
+          </div>}
+      </div>
+      {session && 
+        <form onSubmit={commentApi} className='flex flex-col gap-4 my-4'>
+          <input name='content' placeholder='content' className='rounded-xl px-2' />
+          <input type='submit' value='comment' className='ring ring-white rounded-xl' />
+        </form>}
+      <section className='flex flex-col'>
         {comments.map(c => {
           return (
-            <div key={c._id} className='flex flex-col'>
+            <div key={c._id} className='flex flex-col border-t py-2'>
               <Link to={'/comments/' + c._id}>{c.content}</Link>
-              <Link to={'/users/' + c.author._id}>{c.author.username}</Link>
-              <p>{c.date}</p>
+              <div className='flex justify-between'>
+                <Link to={'/users/' + c.author._id} className='underline'>{c.author.username}</Link>
+                <p>{formattedDate(c.date)}</p>
+              </div>
             </div>
           )
         })}

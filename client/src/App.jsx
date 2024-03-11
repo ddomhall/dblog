@@ -2,7 +2,7 @@ import {Outlet, Link} from 'react-router-dom'
 import {useState, useContext} from 'react'
 import {SessionContext} from './SessionContext.jsx'
 import Cookies from 'js-cookie'
-import logo from '../public/dh logo white.png'
+import logo from '../dh logo white.png'
 
 function App() {
   const [session, setSession] = useState(Cookies.get('session'))
@@ -32,8 +32,8 @@ function App() {
               <img src={logo} className='h-10'/>
             </Link>
             <form onSubmit={searchUser}>
-              <input name='search' placeholder='users' className='rounded-2xl py-0.5 px-2'/>
-              <input type='submit' value='search' className='ring ring-white rounded-xl px-2 ml-2'/>
+              <input name='search' placeholder='users' className='rounded-2xl px-2'/>
+              <input type='submit' value='search' className='border rounded-xl px-2 ml-2'/>
             </form>
           </div>
           {session ? 
