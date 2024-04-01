@@ -3,7 +3,7 @@ import {SessionContext} from './SessionContext.jsx'
 import {Link, useParams} from 'react-router-dom'
 import formattedDate from '../utils/formattedDate.js'
 
-export default function Message() {
+export default function Conversations() {
   const [conversations, setConversations] = useState([])
   const [messages, setMessages] = useState([])
   const {session} = useContext(SessionContext)

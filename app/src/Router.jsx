@@ -19,10 +19,6 @@ export default function Router() {
       errorElement: <ErrorPage />,
       children: [
         {
-          index: true,
-          element: <Feed />
-        },
-        {
           path: 'search',
           element: <Search />
         },
@@ -51,15 +47,19 @@ export default function Router() {
           element: <Comment />
         },
         {
+          path: 'conversations/:id',
+          element: <Conversations />
+        },
+        {
           path: 'conversations',
           element: <Conversations />
         },
         {
-          path: 'conversations/:id',
-          element: <Conversations />
-        },
+          index: true,
+          element: <Feed />
+        }
       ]
-    },
+    }
   ]);
 
   return <RouterProvider router={router} />;
