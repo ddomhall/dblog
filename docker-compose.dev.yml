@@ -1,0 +1,33 @@
+services:
+  app:
+    image: dblog-front-dev
+    container_name: dblog-front-dev
+    build:
+      context: ./app/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./app/:/usr/src/app
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8080/api/
+
+  server:
+    image: dblog-back-dev
+    container_name: dblog-back-dev
+    build:
+      context: ./api/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./api/:/usr/src/app
+    environment: 
+      - MONGODB_URI=${MONGODB_URI}
+
+  nginx:
+    image: nginx:1.20.1
+    container_name: dblog-reverse-proxy
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - app
+      - server

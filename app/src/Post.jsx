@@ -3,7 +3,7 @@ import {useState, useEffect, useContext} from 'react'
 import {SessionContext} from './SessionContext.jsx'
 import formattedDate from '../utils/formattedDate.js'
 
-export default function Profile() {
+export default function Post() {
   const {session} = useContext(SessionContext)
   const [post, setPost] = useState({_id: '', content: '', author: {username: ''}, date: ''})
   const [comments, setComments] = useState([])
@@ -11,13 +11,13 @@ export default function Profile() {
   const {id}= useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts/${id}`).then(res => res.json()).then(res => setPost(res))
-    fetch(`http://localhost:3000/posts/${id}/comments/`).then(res => res.json()).then(res => setComments(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}`).then(res => res.json()).then(res => setPost(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/comments/`).then(res => res.json()).then(res => setComments(res))
   },[])
 
   async function commentApi(e) {
     e.preventDefault()
-    fetch(`http://localhost:3000/posts/${id}/comments/`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/comments/`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -32,7 +32,7 @@ export default function Profile() {
 
   async function editPost(e) {
     e.preventDefault()
-    fetch(`http://localhost:3000/posts/${id}/update`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/update`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -46,7 +46,7 @@ export default function Profile() {
   }
 
   async function deletePost() {
-    fetch(`http://localhost:3000/posts/${id}/delete`, {method: 'DELETE'}).then(document.location.replace('/'))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/delete`, {method: 'DELETE'}).then(document.location.replace('/'))
   }
 
   return(

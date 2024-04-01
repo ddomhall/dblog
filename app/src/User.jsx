@@ -4,7 +4,7 @@ import {SessionContext} from './SessionContext.jsx'
 import Cookies from 'js-cookie'
 import PostListItem from './PostListItem.jsx'
 
-export default function Profile() {
+export default function User() {
   const [edit, setEdit] = useState(false)
   const [viewer, setViewer] = useState({following: []})
   const [user, setUser] = useState({})
@@ -15,15 +15,15 @@ export default function Profile() {
 
   useEffect(() => {
     if (session) {
-    fetch(`http://localhost:3000/users/${session}`).then(res => res.json()).then(res => setViewer(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${session}`).then(res => res.json()).then(res => setViewer(res))
     }
-    fetch(`http://localhost:3000/users/${id}`).then(res => res.json()).then(res => setUser(res))
-    fetch(`http://localhost:3000/users/${id}/posts`).then(res => res.json()).then(res => setPosts(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}`).then(res => res.json()).then(res => setUser(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/posts`).then(res => res.json()).then(res => setPosts(res))
   },[])
 
   async function editUser(e) {
     e.preventDefault()
-    fetch(`http://localhost:3000/users/${id}/update`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/update`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -37,11 +37,11 @@ export default function Profile() {
 
   async function deleteUser() {
     if (window.confirm(`you are deleting the account "${user.username}"`))
-    fetch(`http://localhost:3000/users/${id}/delete`, {method: 'DELETE'}).then(Cookies.remove('session')).then(document.location.replace('/'))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/delete`, {method: 'DELETE'}).then(Cookies.remove('session')).then(document.location.replace('/'))
   }
 
   async function followUser() {
-    fetch(`http://localhost:3000/users/${id}/follow`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/follow`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,7 +54,7 @@ export default function Profile() {
   }
 
   async function unfollowUser() {
-    fetch(`http://localhost:3000/users/${id}/unfollow`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/unfollow`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -67,7 +67,7 @@ export default function Profile() {
   }
 
   function messageUser() {
-    fetch('http://localhost:3000/conversations', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/conversations`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -88,9 +88,9 @@ export default function Profile() {
             <input name='username' placeholder='username' className='w-[187px] rounded-xl px-2'/>
             <input type='submit' value='edit' className='ring ring-white rounded-xl px-2'/>
           </form> :
-          <h1>{user.username}</h1>
+          <p>{user.username}</p>
         }
-        {session &&
+        {session ?
           <div>
             {session == id ?
               <div className='flex gap-3'>
@@ -108,7 +108,7 @@ export default function Profile() {
                 }
               </div>
             }
-          </div>}
+          </div> : <p>log in to message/follow</p>}
       </div>
       <div className='flex gap-6 flex-col mt-6'>
         {posts.map(p => <PostListItem key={p._id} post={p} />)}

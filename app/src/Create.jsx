@@ -6,7 +6,7 @@ export default function create() {
 
   async function postApi(e) {
     e.preventDefault()
-    fetch('http://localhost:3000/posts', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

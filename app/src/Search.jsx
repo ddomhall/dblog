@@ -6,7 +6,7 @@ export default function Search() {
   let [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users?search=${searchParams.get('search')}`).then(res => res.json()).then(res => setUsers(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/users?search=${searchParams.get('search')}`).then(res => res.json()).then(res => setUsers(res))
   },[])
 
   return (

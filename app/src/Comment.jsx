@@ -10,12 +10,12 @@ export default function Comment() {
   const {session} = useContext(SessionContext)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/comments/${id}`).then(res => res.json()).then(res => setComment(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}`).then(res => res.json()).then(res => setComment(res))
   })
 
   async function editComment(e) {
     e.preventDefault()
-    fetch(`http://localhost:3000/comments/${id}/edit`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}/edit`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -28,7 +28,7 @@ export default function Comment() {
   }
 
   async function deleteComment() {
-    fetch(`http://localhost:3000/comments/${id}/delete`, {method: 'DELETE'}).then(location.href= document.referrer)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}/delete`, {method: 'DELETE'}).then(location.href= document.referrer)
   }
 
   return (

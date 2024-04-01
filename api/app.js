@@ -15,22 +15,9 @@ mongoose.connect(mongoDb)
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "mongo connection error"))
 
-var whitelist = ['http://localhost:3000', 'http://localhost:5173']
-var corsOptions = {
-	credentials: true,
-	exposedHeaders: ["set-cookie"],
-	origin: function(origin, callback) {
-		if (whitelist.indexOf(origin) !== -1) {
-			callback(null, true)
-		} else {
-			callback(new Error('Not allowed by CORS'))
-		}
-	}
-}
-
 const app = express()
 app.use(cookieParser())
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/', indexRouter)

@@ -11,7 +11,7 @@ export default function Message() {
 
   useEffect(() => {
     async function getUserConversations() {
-      await fetch('http://localhost:3000/conversations', {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/conversations`, {
         credentials: 'include',
       }).then(res => res.json()).then(res => {
         setConversations(res.map(c => c = {id: c._id, users: c.users.filter(u => u._id !== session).map(u => u.username).join(', ')}))
@@ -20,13 +20,13 @@ export default function Message() {
     getUserConversations()
 
     if (id) {
-      fetch(`http://localhost:3000/messages?id=${id}`).then(res => res.json()).then(res => setMessages(res))
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/messages?id=${id}`).then(res => res.json()).then(res => setMessages(res))
     }
   }, [id])
 
   function sendMessage(e) {
     e.preventDefault()
-    fetch('http://localhost:3000/messages', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/messages`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

@@ -8,9 +8,9 @@ export default function Feed() {
 
   useEffect(() => {
     if (session) {
-    fetch(`http://localhost:3000/posts?id=${session}`).then(res => res.json()).then(res => setPosts(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts?id=${session}`).then(res => res.json()).then(res => setPosts(res))
     } else {
-    fetch(`http://localhost:3000/posts`).then(res => res.json()).then(res => setPosts(res))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts`).then(res => res.json()).then(res => setPosts(res))
     }
   }, [])
 

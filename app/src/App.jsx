@@ -9,7 +9,7 @@ function App() {
   const navigate = useNavigate()
 
   function logout() {
-    fetch('http://localhost:3000/logout', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
       method: 'POST',
       credentials: 'include',
     })
@@ -19,7 +19,7 @@ function App() {
   async function searchUser(e) {
     e.preventDefault()
     const name = e.target.search.value
-    const user = await fetch(`http://localhost:3000/search?username=${name}`).then(res => res.json())
+    const user = await fetch(`${import.meta.env.VITE_BACKEND_URL}/search?username=${name}`).then(res => res.json())
     if (user) {
       window.location.replace(`/users/${user._id}`)
     } else {
@@ -36,7 +36,7 @@ function App() {
               <img src={logo} className='h-10'/>
             </Link>
             <form onSubmit={searchUser}>
-              <input name='search' placeholder='users' className='rounded-2xl px-2'/>
+              <input name='search' placeholder='users' className='rounded-2xl px-2' />
               <input type='submit' value='search' className='border rounded-xl px-2 ml-2'/>
             </form>
           </div>

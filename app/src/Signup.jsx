@@ -12,7 +12,7 @@ export default function Signup() {
         setError()
       }, 3000);
     } else {
-      fetch('http://localhost:3000/users', {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/users`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
