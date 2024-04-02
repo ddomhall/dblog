@@ -51,7 +51,8 @@ export default function Conversations() {
             {messages && messages.map(m => 
               <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2 mt-6`}>
                 <div>{m.content}</div>
-                <div>{formattedDate(m.time)}</div>
+                <Link to={'/users/' + m.sender._id} className='underline'>{m.sender.username}</Link>
+                <span> - {formattedDate(m.time)}</span>
               </div>)}
           </div>
           <form onSubmit={sendMessage} className='flex gap-6 m-6 pt-6 border-t'>

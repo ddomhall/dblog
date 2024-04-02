@@ -5,6 +5,6 @@ export default function formattedDate(date) {
   let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
   let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
   let month = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
-  return  `${hours}:${minutes}:${seconds} - ${day}/${month}/${date.getFullYear()}`
+  return  `${day}/${month}/${date.getFullYear()} - ${hours}:${minutes}:${seconds}`
 }
 

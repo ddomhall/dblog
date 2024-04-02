@@ -92,13 +92,13 @@ export default function Post() {
       <section className='flex flex-col'>
         {comments.map(c => {
           return (
-            <div key={c._id} className='flex flex-col border-t py-2'>
-              <Link to={'/comments/' + c._id}>{c.content}</Link>
+            <Link to={'/comments/' + c._id} key={c._id} className='flex flex-col border-t py-2'>
+              <div>{c.content}</div>
               <div className='flex justify-between'>
                 <Link to={'/users/' + c.author._id} className='underline'>{c.author.username}</Link>
                 <p>{formattedDate(c.date)}</p>
               </div>
-            </div>
+            </Link>
           )
         })}
       </section>
