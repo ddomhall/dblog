@@ -31,6 +31,8 @@ export default function Comment() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}/delete`, {method: 'DELETE'}).then(location.href= document.referrer)
   }
 
+  if (!comment._id) return null
+
   return (
     <div className='w-96 m-auto ring ring-white rounded-xl p-2'>
       <section>

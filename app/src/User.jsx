@@ -80,6 +80,8 @@ export default function User() {
     }).then(res => res.json()).then(res => window.location.replace('/conversations/' + res._id))
   }
 
+  if (!user._id) return null
+
   return(
     <div className='w-96 m-auto'>
       <div className='flex justify-between'>

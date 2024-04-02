@@ -49,6 +49,8 @@ export default function Post() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/delete`, {method: 'DELETE'}).then(document.location.replace('/'))
   }
 
+  if (!post._id) return null
+
   return(
     <div className='w-96 m-auto ring ring-white rounded-xl p-2'>
       <div className='pb-2'>
