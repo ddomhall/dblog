@@ -41,25 +41,25 @@ export default function Conversations() {
   }
 
   return (
-    <div className='grid grid-cols-4 h-full'>
-      <aside className='flex flex-col border-r'>
+    <div className='h-full relative'>
+      <aside className={'flex flex-col border-r min-[750px]:w-[375px] max-[750px]:w-full h-full ' + (!id ? 'absolute' : 'max-[750px]:hidden min-[750px]:absolute')}>
         {conversations && conversations.map(c => <Link to={'/conversations/' + c.id} key={c.id} className='border-b mx-6 py-2'>{c.users}</Link>)}
       </aside>
-      {id && 
-        <section className='col-span-3 flex flex-col justify-between'>
-          <div className='flex flex-col p-6 h-full max-h-[calc(100vh-64px-97.21px)] overflow-y-scroll'>
-            {messages && messages.map(m => 
-              <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2 mt-6`}>
-                <div>{m.content}</div>
-                <Link to={'/users/' + m.sender._id} className='underline'>{m.sender.username}</Link>
-                <span> - {formattedDate(m.time)}</span>
-              </div>)}
-          </div>
-          <form onSubmit={sendMessage} className='flex gap-6 m-6 pt-6 border-t'>
-            <input name='content' placeholder='content' className='w-11/12 rounded-xl px-2' />
-            <input type='submit' value='send' className='w-1/12 ring ring-white rounded-xl' />
-          </form> 
-        </section>}
+      {id &&
+      <section className='flex flex-col justify-between min-[750px]:ml-[375px]'>
+        <div className='flex flex-col p-6 h-full  overflow-y-scroll max-h-[calc(100vh-106.42px-97.21px)] min-[750px]:max-h-[calc(100vh-64px-97.21px)]'>
+          {messages && messages.map(m => 
+            <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2 mt-6`}>
+              <div>{m.content}</div>
+              <Link to={'/users/' + m.sender._id} className='underline'>{m.sender.username}</Link>
+              <span> - {formattedDate(m.time)}</span>
+            </div>)}
+        </div>
+        <form onSubmit={sendMessage} className='flex gap-6 m-6 pt-6 border-t'>
+          <input name='content' placeholder='content' className='flex-grow rounded-xl px-2' />
+          <input type='submit' value='send' className='ring ring-white rounded-xl px-2' />
+        </form> 
+      </section>}
     </div>
   )
 }
