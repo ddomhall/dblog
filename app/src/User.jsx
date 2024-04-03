@@ -83,11 +83,11 @@ export default function User() {
   if (!user._id) return null
 
   return(
-    <div className='w-96 m-auto'>
+    <div className='w-80 m-auto'>
       <div className='flex justify-between'>
         {edit ?
           <form onSubmit={editUser} className='flex gap-2'>
-            <input name='username' placeholder='username' className='w-[187px] rounded-xl px-2'/>
+            <input name='username' placeholder='username' className='w-[122px] rounded-xl px-2'/>
             <input type='submit' value='edit' className='ring ring-white rounded-xl px-2'/>
           </form> :
           <p>{user.username}</p>

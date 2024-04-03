@@ -49,10 +49,10 @@ export default function Post() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/delete`, {method: 'DELETE'}).then(document.location.replace('/'))
   }
 
-  if (!post._id) return null
+  if (!post._id) return <></>
 
   return(
-    <div className='w-96 m-auto ring ring-white rounded-xl p-2'>
+    <div className='w-80 m-auto ring ring-white rounded-xl p-2'>
       <div className='pb-2'>
         {!edit ?
           <section className='flex flex-col gap-2'>
@@ -92,13 +92,13 @@ export default function Post() {
       <section className='flex flex-col'>
         {comments.map(c => {
           return (
-            <Link to={'/comments/' + c._id} key={c._id} className='flex flex-col border-t py-2'>
-              <div>{c.content}</div>
+            <div key={c._id} className='flex flex-col border-t py-2'>
+              <Link to={'/comments/' + c._id} className='underline'>{c.content}</Link>
               <div className='flex justify-between'>
                 <Link to={'/users/' + c.author._id} className='underline'>{c.author.username}</Link>
                 <p>{formattedDate(c.date)}</p>
               </div>
-            </Link>
+            </div>
           )
         })}
       </section>

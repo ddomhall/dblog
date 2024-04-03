@@ -34,7 +34,7 @@ export default function Comment() {
   if (!comment._id) return null
 
   return (
-    <div className='w-96 m-auto ring ring-white rounded-xl p-2'>
+    <div className='w-80 m-auto ring ring-white rounded-xl p-2'>
       <section>
         {!edit ? 
           <div className='flex flex-col gap-2'>

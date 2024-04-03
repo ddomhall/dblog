@@ -27,7 +27,7 @@ export default function create() {
 
 
   return (
-    <form onSubmit={postApi} className='flex flex-col w-96 m-auto gap-2 ring ring-white p-2 rounded-xl'>
+    <form onSubmit={postApi} className='flex flex-col w-80 m-auto gap-2 ring ring-white p-2 rounded-xl'>
       <input name='content' placeholder='content' className='rounded-xl px-2'/>
       <div className='flex justify-between'>
       <label htmlFor='published' className='pl-2'>published

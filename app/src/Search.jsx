@@ -10,7 +10,7 @@ export default function Search() {
   },[])
 
   return (
-    <div className='w-96 m-auto'>
+    <div className='w-80 m-auto'>
       {users == [] ? 'no users found' : users.map(u => <a href={'/users/' + u._id}><section>{u.username}</section></a>)}
     </div>
   )

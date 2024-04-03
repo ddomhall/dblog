@@ -15,7 +15,7 @@ export default function Feed() {
   }, [])
 
   return (
-    <div className='flex flex-col gap-6 w-96 m-auto'>
+    <div className='flex flex-col gap-6 w-80 m-auto'>
       {posts.length ? posts.map(p => <PostListItem post={p} key={p._id} />) : <p className='text-center'>Follow users to see posts here</p>}
     </div>
   )

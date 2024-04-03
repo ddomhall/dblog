@@ -30,8 +30,8 @@ function App() {
   return (
     <>
       <SessionContext.Provider value={{session, setSession}}>
-        <nav className='flex w-full justify-between mb-6 h-10 items-center border-b'>
-          <div className='flex items-center'>
+        <nav className='flex w-full justify-center min-[750px]:justify-between mb-6 min-[750px]:h-10 items-center border-b flex-wrap'>
+          <div className='flex items-center justify-between px-2 min-w-[375px]'>
             <Link to={'/'}>
               <img src={logo} className='h-10'/>
             </Link>
@@ -40,20 +40,20 @@ function App() {
               <input type='submit' value='search' className='border rounded-xl px-2 ml-2'/>
             </form>
           </div>
-          {session ? 
-            <div>
-              <Link to={'/create'} className='px-2 border-l'>create</Link>
-              <Link to={'/conversations'} className='px-2 border-l'>conversations</Link>
-              <Link to={'/users/' + session } className='px-2 border-l'>profile</Link>
-              <button onClick={logout} className='px-2 border-l'>log out</button>
-            </div> :
-            <div>
-              <Link to={'/signup'} className='px-2 border-l'>sign up</Link>
-              <Link to={'/login'} className='px-2 border-l'>log in</Link>
-            </div>
-          }
+          <div className='min-w-[375px] flex justify-center py-2 border-t min-[750px]:border-none min-[750px]:justify-end'>
+            {session ? 
+              <>
+                <Link to={'/create'} className='px-2 border-l'>create</Link>
+                <Link to={'/conversations'} className='px-2 border-l'>conversations</Link>
+                <Link to={'/users/' + session } className='px-2 border-l'>profile</Link>
+                <button onClick={logout} className='px-2 border-x'>log out</button>
+              </> : <>
+                <Link to={'/signup'} className='px-2 border-l'>sign up</Link>
+                <Link to={'/login'} className='px-2 border-x'>log in</Link>
+              </>}
+          </div>
         </nav>
-        <main className='h-[calc(100vh-64px)]'>
+        <main className='h-[calc(100vh-106.42px)] min-[750px]:h-[calc(100vh-64px)]'>
           <Outlet />
         </main>
       </SessionContext.Provider>
