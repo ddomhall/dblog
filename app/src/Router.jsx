@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
-import ErrorPage from "./ErrorPage";
+import App from "./App.jsx";
+import ErrorPage from "./ErrorPage.jsx";
 import Feed from './Feed.jsx'
 import Search from './Search.jsx'
 import User from './User.jsx'
