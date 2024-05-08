@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import Cookies from 'js-cookie'
 
 export default function Signup() {
@@ -38,13 +38,13 @@ export default function Signup() {
     }
   }
 
-  return(
+  return (
     <div className='w-80 m-auto ring ring-white rounded-xl p-6'>
       <form onSubmit={signupApi} className='flex flex-col gap-3'>
-        <input name='username' placeholder='username' required autoFocus className='rounded-xl px-2'/>
-        <input name='password' placeholder='password' type='password' required  className='rounded-xl px-2'/>
-        <input name='confirmation' placeholder='confirm password' type='password' required  className='rounded-xl px-2'/>
-        <input type='submit' value='log in' className='ring ring-white rounded-xl'/>
+        <input name='username' placeholder='username' required autoFocus className='rounded-xl px-2 ring ring-white' />
+        <input name='password' placeholder='password' type='password' required className='rounded-xl px-2 ring ring-white' />
+        <input name='confirmation' placeholder='confirm password' type='password' required className='rounded-xl px-2 ring ring-white' />
+        <input type='submit' value='log in' className='ring ring-white rounded-xl' />
       </form>
       {error}
     </div>

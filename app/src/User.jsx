@@ -1,25 +1,25 @@
-import {useParams, Link} from 'react-router-dom'
-import {useState, useEffect, useContext} from 'react'
-import {SessionContext} from './SessionContext.jsx'
+import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { SessionContext } from './SessionContext.jsx'
 import PostListItem from './PostListItem.jsx'
 import Cookies from 'js-cookie'
 
 export default function User() {
   const [edit, setEdit] = useState(false)
-  const [viewer, setViewer] = useState({following: []})
+  const [viewer, setViewer] = useState({ following: [] })
   const [user, setUser] = useState({})
   const [posts, setPosts] = useState([])
-  const {id}= useParams()
-  const {session} = useContext(SessionContext)
+  const { id } = useParams()
+  const { session } = useContext(SessionContext)
 
 
   useEffect(() => {
     if (session) {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${session}`).then(res => res.json()).then(res => setViewer(res))
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${session}`).then(res => res.json()).then(res => setViewer(res))
     }
     fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}`).then(res => res.json()).then(res => setUser(res))
     fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/posts`).then(res => res.json()).then(res => setPosts(res))
-  },[])
+  }, [])
 
   async function editUser(e) {
     e.preventDefault()
@@ -37,7 +37,7 @@ export default function User() {
 
   async function deleteUser() {
     if (window.confirm(`you are deleting the account "${user.username}"`))
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/delete`, {method: 'DELETE'}).then(Cookies.remove('session')).then(document.location.replace('/'))
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${id}/delete`, { method: 'DELETE' }).then(Cookies.remove('session')).then(document.location.replace('/'))
   }
 
   async function followUser() {
@@ -74,7 +74,7 @@ export default function User() {
         'Content-Type': 'application/json'
       },
       credentials: 'include',
-      body : JSON.stringify({
+      body: JSON.stringify({
         recipient: id
       })
     }).then(res => res.json()).then(res => window.location.replace('/conversations/' + res._id))
@@ -82,13 +82,13 @@ export default function User() {
 
   if (!user._id) return null
 
-  return(
+  return (
     <div className='w-80 m-auto'>
       <div className='flex justify-between'>
         {edit ?
-          <form onSubmit={editUser} className='flex gap-2'>
-            <input name='username' placeholder='username' className='w-[122px] rounded-xl px-2'/>
-            <input type='submit' value='edit' className='ring ring-white rounded-xl px-2'/>
+          <form onSubmit={editUser} className='flex gap-3'>
+            <input name='username' placeholder='username' className='w-[97px] rounded-xl px-2 ring ring-white' />
+            <input type='submit' value='update' className='ring ring-white rounded-xl px-2' />
           </form> :
           <p>{user.username}</p>
         }
@@ -97,7 +97,7 @@ export default function User() {
             {session == id ?
               <div className='flex gap-3'>
                 {edit ?
-                  <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> : 
+                  <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> :
                   <button onClick={() => setEdit(true)} className='ring ring-white rounded-xl px-2'>edit</button>
                 }
                 <button onClick={deleteUser} className='ring ring-white rounded-xl px-2'>delete</button>

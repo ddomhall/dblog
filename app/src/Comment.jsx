@@ -1,13 +1,13 @@
-import {useState, useEffect, useContext} from 'react'
-import {useParams, Link} from 'react-router-dom'
-import {SessionContext} from './SessionContext.jsx'
+import { useState, useEffect, useContext } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { SessionContext } from './SessionContext.jsx'
 import formattedDate from '../utils/formattedDate.js'
 
 export default function Comment() {
-  const [comment, setComment] = useState({content: '', author: {username: ''}, date: ''})
+  const [comment, setComment] = useState({ content: '', author: { username: '' }, date: '' })
   const [edit, setEdit] = useState(false)
-  const {id} = useParams()
-  const {session} = useContext(SessionContext)
+  const { id } = useParams()
+  const { session } = useContext(SessionContext)
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}`).then(res => res.json()).then(res => setComment(res))
@@ -28,7 +28,7 @@ export default function Comment() {
   }
 
   async function deleteComment() {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}/delete`, {method: 'DELETE'}).then(location.href= document.referrer)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/comments/${id}/delete`, { method: 'DELETE' }).then(location.href = document.referrer)
   }
 
   if (!comment._id) return null
@@ -36,24 +36,24 @@ export default function Comment() {
   return (
     <div className='w-80 m-auto ring ring-white rounded-xl p-2'>
       <section>
-        {!edit ? 
+        {!edit ?
           <div className='flex flex-col gap-2'>
             <p>{comment.content}</p>
             <div className='flex justify-between'>
-            <Link to={'/users/' + comment.author._id} className='underline'>{comment.author.username}</Link>
-            <p>{formattedDate(comment.date)}</p>
+              <Link to={'/users/' + comment.author._id} className='underline'>{comment.author.username}</Link>
+              <p>{formattedDate(comment.date)}</p>
             </div>
           </div> :
           <form onSubmit={editComment} className='flex flex-col gap-2'>
-            <input name='content' placeholder='content' className='rounded-xl px-2' />
-            <input type='submit' value='comment' className='ring ring-white rounded-xl px-2' />
+            <input name='content' placeholder='content' defaultValue={comment.content} className='rounded-xl px-2 ring ring-white' />
+            <input type='submit' value='update' className='ring ring-white rounded-xl px-2' />
           </form>
         }
         {session == comment.author._id &&
           <div className='flex justify-between mt-2'>
             {edit ?
-            <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> :
-            <button onClick={() => setEdit(true)} className='ring ring-white rounded-xl px-2'>edit</button>
+              <button onClick={() => setEdit(false)} className='ring ring-white rounded-xl px-2'>cancel</button> :
+              <button onClick={() => setEdit(true)} className='ring ring-white rounded-xl px-2'>edit</button>
             }
             <button onClick={deleteComment} className='ring ring-white rounded-xl px-2'>delete</button>
           </div>}

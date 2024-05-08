@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { redirect } from "react-router-dom";
 
 export default function Login() {
@@ -20,23 +20,23 @@ export default function Login() {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.m == 'success'){
+        if (res.m == 'success') {
           setError()
           window.location.replace('/')
         } else {
           setError('incorrect details')
           setTimeout(() => {
-          setError()
+            setError()
           }, 3000);
         }
       })
   }
 
-  return(
+  return (
     <form onSubmit={loginApi} className='flex flex-col w-80 m-auto gap-3 ring ring-white rounded-xl p-6'>
-      <input name='username' placeholder='username' required autoFocus className='rounded-xl px-2'/>
-      <input name='password' placeholder='password' type='password' required  className='rounded-xl px-2'/>
-      <input type='submit' value='log in' className='ring ring-white rounded-xl'/>
+      <input name='username' placeholder='username' required autoFocus className='rounded-xl px-2 ring ring-white' />
+      <input name='password' placeholder='password' type='password' required className='rounded-xl px-2 ring ring-white' />
+      <input type='submit' value='log in' className='ring ring-white rounded-xl' />
       {error}
     </form>
   )

@@ -1,20 +1,20 @@
-import {useState, useEffect, useContext} from 'react'
-import {SessionContext} from './SessionContext.jsx'
-import {Link, useParams} from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { SessionContext } from './SessionContext.jsx'
+import { Link, useParams } from 'react-router-dom'
 import formattedDate from '../utils/formattedDate.js'
 
 export default function Conversations() {
   const [conversations, setConversations] = useState([])
   const [messages, setMessages] = useState([])
-  const {session} = useContext(SessionContext)
-  const {id} = useParams()
+  const { session } = useContext(SessionContext)
+  const { id } = useParams()
 
   useEffect(() => {
     async function getUserConversations() {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/conversations`, {
         credentials: 'include',
       }).then(res => res.json()).then(res => {
-        setConversations(res.map(c => c = {id: c._id, users: c.users.filter(u => u._id !== session).map(u => u.username).join(', ')}))
+        setConversations(res.map(c => c = { id: c._id, users: c.users.filter(u => u._id !== session).map(u => u.username).join(', ') }))
       })
     }
     getUserConversations()
@@ -46,20 +46,20 @@ export default function Conversations() {
         {conversations && conversations.map(c => <Link to={'/conversations/' + c.id} key={c.id} className='border-b mx-6 py-2'>{c.users}</Link>)}
       </aside>
       {id &&
-      <section className='flex flex-col justify-between min-[750px]:ml-[375px]'>
-        <div className='flex flex-col p-6 h-full  overflow-y-scroll max-h-[calc(100vh-106.42px-97.21px)] min-[750px]:max-h-[calc(100vh-64px-97.21px)]'>
-          {messages && messages.map(m => 
-            <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2 mt-6`}>
-              <div>{m.content}</div>
-              <Link to={'/users/' + m.sender._id} className='underline'>{m.sender.username}</Link>
-              <span> - {formattedDate(m.time)}</span>
-            </div>)}
-        </div>
-        <form onSubmit={sendMessage} className='flex gap-6 m-6 pt-6 border-t'>
-          <input name='content' placeholder='content' className='flex-grow rounded-xl px-2' />
-          <input type='submit' value='send' className='ring ring-white rounded-xl px-2' />
-        </form> 
-      </section>}
+        <section className='flex flex-col justify-between h-full min-[750px]:ml-[375px]'>
+          <div className='flex flex-col p-6 h-full overflow-y-scroll max-h-[calc(100vh-106.42px-97.21px)] min-[750px]:max-h-[calc(100vh-72px-97.21px)]'>
+            {messages && messages.map(m =>
+              <div key={m._id} className={`w-fit ${m.sender._id == session ? 'ml-auto' : 'mr-auto'} ring ring-white rounded-xl p-2 mt-6`}>
+                <div>{m.content}</div>
+                <Link to={'/users/' + m.sender._id} className='underline'>{m.sender.username}</Link>
+                <span> - {formattedDate(m.time)}</span>
+              </div>)}
+          </div>
+          <form onSubmit={sendMessage} className='flex gap-6 m-6 pt-6 border-t'>
+            <input name='content' placeholder='content' className='flex-grow rounded-xl px-2 ring ring-white' />
+            <input type='submit' value='send' className='ring ring-white rounded-xl px-2' />
+          </form>
+        </section>}
     </div>
   )
 }

@@ -1,19 +1,19 @@
-import {useParams, Link} from 'react-router-dom'
-import {useState, useEffect, useContext} from 'react'
-import {SessionContext} from './SessionContext.jsx'
+import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { SessionContext } from './SessionContext.jsx'
 import formattedDate from '../utils/formattedDate.js'
 
 export default function Post() {
-  const {session} = useContext(SessionContext)
-  const [post, setPost] = useState({_id: '', content: '', author: {username: ''}, date: ''})
+  const { session } = useContext(SessionContext)
+  const [post, setPost] = useState({ _id: '', content: '', author: { username: '' }, date: '' })
   const [comments, setComments] = useState([])
   const [edit, setEdit] = useState(false)
-  const {id}= useParams()
+  const { id } = useParams()
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}`).then(res => res.json()).then(res => setPost(res))
     fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/comments/`).then(res => res.json()).then(res => setComments(res))
-  },[])
+  }, [])
 
   async function commentApi(e) {
     e.preventDefault()
@@ -46,12 +46,12 @@ export default function Post() {
   }
 
   async function deletePost() {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/delete`, {method: 'DELETE'}).then(document.location.replace('/'))
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/posts/${id}/delete`, { method: 'DELETE' }).then(document.location.replace('/'))
   }
 
   if (!post._id) return <></>
 
-  return(
+  return (
     <div className='w-80 m-auto ring ring-white rounded-xl p-2'>
       <div className='pb-2'>
         {!edit ?
@@ -63,15 +63,15 @@ export default function Post() {
             </div>
           </section> :
           <form onSubmit={editPost} className='flex flex-col gap-2'>
-            <input name='content' placeholder='content' defaultValue={post.content} className='rounded-xl px-2'/>
+            <input name='content' placeholder='content' defaultValue={post.content} className='rounded-xl px-2 ring ring-white' />
             <div className='flex justify-between'>
-              <label htmlFor='published' className='px-2'>published 
+              <label htmlFor='published' className='px-2'>published
                 {post.published ?
-                  <input name='published' id='published' type='checkbox' defaultChecked className='ml-2'/> :
+                  <input name='published' id='published' type='checkbox' defaultChecked className='ml-2' /> :
                   <input name='published' id='published' type='checkbox' />
                 }
               </label>
-              <input type='submit' value='edit' className='ring ring-white rounded-xl px-2' />
+              <input type='submit' value='update' className='ring ring-white rounded-xl px-2' />
             </div>
           </form>
         }
@@ -84,9 +84,9 @@ export default function Post() {
             <button onClick={deletePost} className='ring ring-white rounded-xl px-2'>delete</button>
           </div>}
       </div>
-      {session && 
+      {session &&
         <form onSubmit={commentApi} className='flex flex-col gap-4 py-4 border-t'>
-          <input name='content' placeholder='content' className='rounded-xl px-2' />
+          <input name='content' placeholder='content' className='rounded-xl px-2 ring ring-white' />
           <input type='submit' value='comment' className='ring ring-white rounded-xl' />
         </form>}
       <section className='flex flex-col'>
