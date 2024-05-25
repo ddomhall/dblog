@@ -42,7 +42,7 @@ export default function Conversations() {
 
   return (
     <div className='h-full relative'>
-      <aside className={'flex flex-col border-r min-[750px]:w-[375px] max-[750px]:w-full h-full ' + (!id ? 'absolute' : 'max-[750px]:hidden min-[750px]:absolute')}>
+      <aside className={'flex flex-col min-[750px]:border-r min-[750px]:w-[375px] max-[750px]:w-full h-full ' + (!id ? 'absolute' : 'max-[750px]:hidden min-[750px]:absolute')}>
         {conversations && conversations.map(c => <Link to={'/conversations/' + c.id} key={c.id} className='border-b mx-6 py-2'>{c.users}</Link>)}
       </aside>
       {id &&
